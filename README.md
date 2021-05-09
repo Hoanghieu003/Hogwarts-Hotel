@@ -2442,3 +2442,39 @@ In the future, we might start automatically compiling incompatible third-party m
 ## Something Missing?
 
 If you have ideas for more “How To” recipes that should be on this page, [let us know](https://github.com/facebookincubator/create-react-app/issues) or [contribute some!](https://github.com/facebookincubator/create-react-app/edit/master/packages/react-scripts/template/README.md)
+
+install this 
+
+- npm install --save node-sass-chokidar@1.2.2 npm-run-all@4.1.2
+- npm i --save react-router-dom@4.2.2
+- npm install --save react-redux@5.0.7 redux@3.7.2 redux-thunk@2.2.0
+- npm install express --save
+
+> inside config/dev.js
+
+```
+module.exports = {
+    DB_URI: 'mongodb://<username>:<password>@ds259444.mlab.com:59444/condo_room'
+} 
+
+```
+- npm install --save axios
+- npm i --save font-awesome
+- npm i titlelize --save
+- npm install --save react-google-maps@9.4.5
+- npm install --save camel-case
+- npm i --save redux-form@7.3.0
+- npm i moment --save
+- npm install react-responsive-modal@3.0.3 --save
+- npm install --save react-toastify@4.0.0-rc.4
+
+> run node server of
+
+```
+node index.js
+```
+
+> go to localhost:3001
+
+> Login to heroku for push
+> create new mlab database for production & create user

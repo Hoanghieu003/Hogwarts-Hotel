@@ -1,23 +1,26 @@
-import titleize from 'titleize';
+import titlelize from 'titlelize';
 import * as moment from 'moment';
 
-export const rentalType = isShared =>  isShared? 'shared' : 'entire';
+export const rentalType = isShared => isShared ? 'shared' : 'entire';
 
-export const toUpperCase = value => value? titleize(value) : '';
+export const toUpperCase = value => value ? titlelize(value) : '';
 
 export const pretifyDate = date => moment(date).format('MMM Do YY');
 
-export const getRangeOfDates = (startAt, endAt, dateFormat='Y/MM/DD') => {
-    const tempDates = [];
+// Y/MM/DD <- dateFormat
+export const getRangeOfDates = (startAt, endAt, dateFormat = 'YYYY-MM-DD') => {
+    const tempdates = [];
+
     const mEndAt = moment(endAt);
     let mStartAt = moment(startAt);
 
     while(mStartAt < mEndAt){
-        tempDates.push(mStartAt.format(dateFormat));
+        tempdates.push(mStartAt.format(dateFormat));
         mStartAt = mStartAt.add(1, 'day');
     }
 
-    tempDates.push(mEndAt.format(dateFormat));
+    tempdates.push(mEndAt.format(dateFormat));
 
-    return tempDates;
+    return tempdates;
+
 }

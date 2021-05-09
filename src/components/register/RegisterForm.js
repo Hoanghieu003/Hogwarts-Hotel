@@ -1,82 +1,73 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { ZHMInput } from '../../components/shared/form/ZHMInput';
-import { ZHMResError } from '../../components/shared/form/ZHMResError';
+import { bwmInput } from './../shared/form/bwm-input';
+import { BwmResError } from './../shared/form/bwmResError';
+
 
 
 const RegisterForm = props => {
+
     const { handleSubmit, pristine, submitting, submitCb, valid, errors } = props
     return (
         <form onSubmit={handleSubmit(submitCb)}>
 
-
-            <Field
-                name="username"
-                
-                type="text"
-                label='Username'
-                component={ZHMInput}
-                className="form-control"
-            />
-
-            <Field
-                name="email"
-                
-                type="email"
-                label='Email'
-                className="form-control"
-                component={ZHMInput}
-            />
-
-            <Field
-                name="password"
-                
-                type="password"
-                label='Password'
-                className="form-control"
-                component={ZHMInput}
-            />
-
-            <Field
-                name="passwordConfirmation"
-                
-                type="password"
-                label='Confirm Password'
-                className="form-control"
-                component={ZHMInput}
-            />
-
-
-
-            <button className="btn btn-bwm btn-form" type="submit" disabled={!valid || pristine || submitting}>
-                Register
-        </button>
-        <ZHMResError errors={errors}/>
-
+                    <Field
+                        name="username"
+                        type="text"
+                        label="User Name"
+                        className="form-control"
+                        component={bwmInput}
+                    />
+                    <Field
+                        name="email"
+                        type="email"
+                        label="Email"
+                        className="form-control"
+                        component={bwmInput}
+                    />
+                    <Field
+                        name="password"
+                        type="password"
+                        label="Password"
+                        className="form-control"
+                        component={bwmInput}
+                    />
+                    <Field
+                        name="passwordConfirm"
+                        type="password"
+                        label="Password Confirm"
+                        className="form-control"
+                        component={bwmInput}
+                    />
+                <button className="btn btn-bwm btn-form" disabled={!valid || pristine || submitting} type="submit">
+                    Register
+                </button>
+                <BwmResError errors={errors}/>
         </form>
     )
 }
 
 const validate = values => {
     const errors = {}
-
-    if (values.username && values.username.length < 4) {
+    if(values.username && values.username.length < 4){
         errors.username = 'Username min length is 4 characters!';
     }
-    if (!values.email) {
-        errors.email = "Please enter an email!";
-    }
-    if (!values.passwordConfirmation) {
-        errors.passwordConfirmation = "Please enter password confirmation!";
+
+    if(!values.email){
+        errors.email = 'Please enter email';
     }
 
-    if (values.password !== values.passwordConfirmation) {
-        errors.password = 'Passwords must match!';
+    if(!values.passwordConfirm){
+        errors.passwordConfirm = "Please enter password confirmation!";
+    }
+
+    if(values.password !== values.passwordConfirm){
+        errors.password = 'Password must be the same';
     }
     return errors
 }
 
-
 export default reduxForm({
-    form: 'registerForm', validate
+    form: 'registerForm',
+    validate
 })(RegisterForm)

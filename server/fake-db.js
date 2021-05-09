@@ -1,40 +1,44 @@
-const Rental = require('./model/rental');
-const User = require('./model/user');
-const fakeDbData = require('./data.json');
-const Booking = require('./model/booking');
+const Rental = require('./models/rental');
+const User = require('./models/user');
+const Booking = require('./models/booking');
+const FakeJsonData = require('./data.json');
+
 class FakeDb {
     constructor() {
-        this.rentals = fakeDbData.rentals;
-
-        this.users = fakeDbData.users;
+        this.rentals = FakeJsonData.rentals;
+        this.user = FakeJsonData.users;
     }
 
-    async cleanDb() {
-        await User.remove({});
-        await Rental.remove({});
-        await Booking.remove({});
+    async cleanDB() {
+        await User.deleteMany();
+        await Rental.deleteMany();
+        await Booking.deleteMany();
     }
+    
+    pushRentalsToDb() {
 
-    pushDataToDb() {
-        const user = new User(this.users[0]);
-        const user1 = new User(this.users[1]);
+        // create new user with given property
+        const user = new User(this.user[0]);
+        const user2 = new User(this.user[1]);
 
         this.rentals.forEach((rental) => {
             const newRental = new Rental(rental);
+            // every rental user property we assign this user
             newRental.user = user;
-
+            // that user has rentals array where we are pushing every rental since he/she is the owner
             user.rentals.push(newRental);
+            // saving rental
             newRental.save();
         });
 
+        // saving user at the end
         user.save();
-        user1.save();
+        user2.save();
     }
-
     async seedDb() {
-        await this.cleanDb();
-        this.pushDataToDb();
+        await this.cleanDB();
+        await this.pushRentalsToDb();
     }
 }
 
-module.exports = FakeDb;
+module.exports = FakeDb; 

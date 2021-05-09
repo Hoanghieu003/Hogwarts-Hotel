@@ -1,27 +1,24 @@
-import { LOGIN_SUCCES, LOGIN_FAILURE, LOGOUT } from '../actions/types';
+import { 
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
+    LOGOUT
+} from './../actions/types';
 
-
-const INTIAL_STATE = {
+const INITIAL_STATE = {
     isAuth: false,
     errors: [],
     username: ''
 }
 
-
-export const authReducer = (state= INTIAL_STATE, action) => {
+export const authReducer = (state = INITIAL_STATE, action) => {
     switch(action.type){
-
-        case LOGIN_SUCCES:
-            return Object.assign({}, state, {isAuth: true, errors:[], username: action.username});
-        
+        case LOGIN_SUCCESS:
+            return Object.assign({}, state, {isAuth: true, errors:[], username: action.username})
         case LOGIN_FAILURE:
             return Object.assign({}, state, {errors: action.errors});
-
-        case LOGOUT:
-            return Object.assign({}, state, {isAuth: false});
-
+        case LOGOUT: 
+            return Object.assign({}, state, {isAuth: false, username: ''});
         default:
             return state;
     }
 }
-

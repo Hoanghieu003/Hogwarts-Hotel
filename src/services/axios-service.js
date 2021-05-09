@@ -1,23 +1,21 @@
-
 import axios from 'axios';
 import authService from './auth-service';
 
 class AxiosService {
-
     axiosInstance = {};
 
-    constructor(){
+    constructor() {
         this.initInstance();
     }
 
-    initInstance(){
+    initInstance() {
         this.axiosInstance = axios.create({
             baseURL: '/api/v1',
-            timeout: 1000
+            timeout: 10000
         });
 
         this.axiosInstance.interceptors.request.use(
-            (config)=>{
+            (config) => {
                 const token = authService.getToken();
 
                 if(token){
@@ -31,9 +29,10 @@ class AxiosService {
         return this.axiosInstance;
     }
 
-    getInstance(){
+    getInstance() {
         return this.axiosInstance || this.initInstance();
     }
+
 }
 
 export default new AxiosService();

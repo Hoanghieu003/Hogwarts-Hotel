@@ -1,26 +1,29 @@
-import {camelCase} from 'camel-case';
+import camalCase from 'camel-case';
 
 let instance = null;
 
-export class Cacher{
+export class Cacher {
+    
+    cache = {};
 
-    constructor(){
+    constructor() {
         if(!instance){
-            instance =  this;
+            instance = this;
         }
+
         return instance;
     }
 
-    cache = {};
-
-    isValueCached(key){
-        return this.getCachedValue(key);
+    isValueCache(key){
+        return this.getCacheValue(key);
     }
+
     cacheValue(key, value){
-        this.cache[camelCase(key)] = value;
+        this.cache[camalCase(key)] = value;
     }
 
-    getCachedValue(key){
-        return this.cache[camelCase(key)];
+    getCacheValue(key){
+        return this.cache[camalCase(key)];
     }
+
 }

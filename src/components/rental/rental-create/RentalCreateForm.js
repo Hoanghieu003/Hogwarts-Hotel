@@ -1,99 +1,107 @@
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { ZHMInput } from '../../../components/shared/form/ZHMInput';
-import { ZHMTextArea } from '../../../components/shared/form/ZHMTextArea';
-import { ZHMSelect } from '../../../components/shared/form/ZHMSelect';
-import { ZHMFileUpload } from '../../../components/shared/form/ZHMFileUpload';
-import { ZHMResError } from '../../../components/shared/form/ZHMResError';
+import React from 'react'
+import { Field, reduxForm } from 'redux-form'
+import { bwmInput } from './../../shared/form/bwm-input';
+import { require } from '../../shared/form/validators';
+import { BwmResError } from './../../shared/form/bwmResError';
+import { bwmTextArea } from './../../shared/form/BwmTextArea';
+import { bwmSelect } from './../../shared/form/bwmSelect';
+import BwmFile from './../../shared/form/bwmFile';
 
-
-const RentalCreateForm = props => {
-    const { handleSubmit, pristine, submitting, submitCb, valid, options, errors } = props
+const CreateRentalForm = props => {
+    const { handleSubmit, pristine, submitting, valid, createRental ,errors, options } = props
     return (
-        <form onSubmit={handleSubmit(submitCb)}>
-
+        <form onSubmit={handleSubmit(createRental)}>
             <Field
                 name="title"
                 type="text"
-                label='Title'
+                label="Title"
                 className="form-control"
-                component={ZHMInput}
+                component={bwmInput}
+                validate={[require]}
             />
+
             <Field
                 name="description"
                 type="text"
-                label='Description'
-                rows='6'
+                rows="6"            
+                label="Description"
                 className="form-control"
-                component={ZHMTextArea}
-            />
-             <Field
+                component={bwmTextArea}
+                validate={[require]}
+            />  
+
+            <Field
                 name="city"
-                type="text"
-                label='City'
+                type="text"            
+                label="City"
                 className="form-control"
-                component={ZHMInput}               
+                component={bwmInput}
+                validate={[require]}
             />
-             <Field
-                name="street"               
-                type="text"
-                label='Street'
-                className="form-control"
-                component={ZHMInput}               
-            />
+
             <Field
-                name="category"               
+                name="street"
+                type="text"            
+                label="Street"
+                className="form-control"
+                component={bwmInput}
+                validate={[require]}
+            />
+
+            <Field
+                name="category"
+                label="Category"
+                className="form-control"
+                component={bwmSelect}
                 options={options}
-                label='StreeCategoryt'
-                className="form-control"
-                component={ZHMSelect}               
+                validate={[require]}
             />
-             <Field
-                name="image"               
-                label='Image'
-                component={ZHMFileUpload}               
-            />
-             <Field
-                name="bedrooms"               
-                type="number"
-                label='Bedrooms'
-                className="form-control"
-                component={ZHMInput}               
+            
+            <Field
+                name="image"
+                label="Image"
+                component={BwmFile}
+                validate={[require]}
             />
 
             <Field
-                name="dailyRate"              
-                type="text"
-                label='Daily Rate'
+                name="bedrooms"
+                type="number"            
+                label="Bedrooms"
                 className="form-control"
-                symbol='$'
-                component={ZHMInput}               
+                component={bwmInput}
+                validate={[require]}
             />
+
             <Field
-                name="shared"              
-                type="checkbox"
-                label='Shared'
+                name="dailyRate"
+                type="number"            
+                label="Daily Rate"
                 className="form-control"
-                component={ZHMInput}               
-            />
+                symbol="$"
+                component={bwmInput}
+                validate={[require]}
+            />        
+            
+            <Field
+                name="shared"
+                type="checkbox"            
+                label="Shared"
+                component={bwmInput}
+            />     
 
-           
-
-
-
-            <button className="btn btn-bwm btn-form" type="submit" disabled={!valid || pristine || submitting}>
-                Create Rental
-        </button>
-        <ZHMResError errors={errors}/>
-
+            <button type="submit" className="btn btn-bwm btn-form" disabled={!valid || pristine || submitting}>
+                Create
+            </button>
+            <BwmResError errors={errors} />
         </form>
     )
 }
 
-
-
-
 export default reduxForm({
-    form: 'rentalCreateForm',
-    initialValues: {shared: false, category: 'apartment'}
-})(RentalCreateForm)
+    form: 'createRentalForm',
+    initialValues: {
+        shared: false,
+        category: 'apartment'
+    }
+})(CreateRentalForm)

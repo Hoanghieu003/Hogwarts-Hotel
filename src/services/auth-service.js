@@ -3,47 +3,43 @@ import * as moment from 'moment';
 
 class AuthService {
 
-    tokenKey = 'auth_token';
+    TOKEN_NAME = 'auth_token'
 
     getToken() {
-        return localStorage.getItem(this.tokenKey);
-    }
-
-    decode(token) {
-        return jwt.decode(token);
-    }
-    getExpiration(token) {
-        const exp = this.decode(token).exp;
-
-        return moment.unix(exp);
-    }
-
-    saveToken(token){
-        localStorage.setItem(this.tokenKey, token);
-    }
-
-    inValidateUser(){
-        localStorage.removeItem(this.tokenKey);
-    }
-
-    isValid(token) {
-        return moment().isBefore(this.getExpiration(token));
-    }
-
-    isAuthenticated() {
-        const token = this.getToken();
-
-        if (token && this.isValid(token)) {
-            return true;
-        }
-
-        return false;
+        return localStorage.getItem(this.TOKEN_NAME);
     }
 
     getUsername(){
         return this.decode(this.getToken()).username;
     }
 
+    decode(token) {
+        return jwt.decode(token);
+    }
+
+    saveToken(token) {
+        localStorage.setItem(this.TOKEN_NAME, token);
+    }
+
+    invalidateUser() {
+        localStorage.removeItem(this.TOKEN_NAME);
+    }
+
+    getExpriration(token) {
+        const exp = this.decode(token).exp;
+        
+        return moment.unix(exp);
+    }
+
+    isValid(token){
+        return moment().isBefore(this.getExpriration(token));
+    }
+
+    isAuthenticated() {
+        const token = this.getToken();
+
+        return (token && this.isValid(token)) ? true : false;
+    }
 }
 
 export default new AuthService();

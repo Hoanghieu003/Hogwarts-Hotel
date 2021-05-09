@@ -1,53 +1,37 @@
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { ZHMInput } from '../../components/shared/form/ZHMInput';
-import { ZHMResError } from '../../components/shared/form/ZHMResError';
-import { required, minLength4 } from '../../components/shared/form/validator';
-
+import React from 'react'
+import { Field, reduxForm } from 'redux-form'
+import { bwmInput } from './../shared/form/bwm-input';
+import { require, minLength4 } from '../shared/form/validators';
+import { BwmResError } from './../shared/form/bwmResError';
 
 const LoginForm = props => {
-    const { handleSubmit, pristine, submitting, submitCb, valid, errors } = props
+    const { handleSubmit, pristine, submitting, valid, loginUser, errors } = props
     return (
-        <form onSubmit={handleSubmit(submitCb)}>
-
-
-          
-
+        <form onSubmit={handleSubmit(loginUser)}>
             <Field
                 name="email"
-                
                 type="email"
-                label='Email'
+                label="Email"
                 className="form-control"
-                component={ZHMInput}
-                validate={[required, minLength4]}
+                component={bwmInput}
+                validate={[require, minLength4]}
             />
 
             <Field
                 name="password"
-                
-                type="password"
-                label='Password'
+                type="password"            
+                label="Password"
                 className="form-control"
-                component={ZHMInput}
-                validate={[required]}
+                component={bwmInput}
+                validate={[require]}
             />
-
-           
-
-
-
-            <button className="btn btn-bwm btn-form" type="submit" disabled={!valid || pristine || submitting}>
+            <button type="submit" className="btn btn-bwm btn-form" disabled={!valid || pristine || submitting}>
                 Login
-        </button>
-        <ZHMResError errors={errors}/>
-
+            </button>
+            <BwmResError errors={errors} />
         </form>
     )
 }
-
-
-
 
 export default reduxForm({
     form: 'loginForm'

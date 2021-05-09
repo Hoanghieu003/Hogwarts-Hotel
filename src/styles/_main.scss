@@ -1,40 +1,55 @@
-@import './variables.scss';
+@import 'variables.scss';
 @import './header/header.scss';
+@import './footer/footer.scss';
+
+@import './form/form.scss';
+
 @import './rental/rental-listing.scss';
 @import './rental/rental-detail.scss';
-@import './rental/rental-manage.scss';
-@import 'form/form.scss';
-@import './booking/booking.scss';
+@import './rental/rental-manage';
+@import './editable/editable-component';
 
-.page-title{
+@import './booking/booking.scss';
+@import './booking/user-bookings';
+
+.page-title {
     font-size: 30px;
     font-weight: 700;
     margin-bottom: 20px;
 }
 
-.apartment{
-    color: #a72da3;
+.clickable {
+    &:hover{
+        cursor: pointer;
+    }
 }
 
-.house{
-    color: #bf1818;
+.apartment {
+    color: #a72da3;    
 }
 
-.condo{
+.house {
+    color: #bf1818;   
+}
+
+.condo {
     color: #d68000;
 }
 
-.btn-bwm{
+.btn-bwm {
     background-color: $main-color;
     border-color: $main-color;
     color: white;
     padding: 15px 30px;
     font-size: 20px;
+    margin: 10px 0;
+    cursor: pointer;
 
-    &:hover, &:focus, &:active{
+    &:hover, &:focus, &:active {
         border-color: $main-color !important;
         background-color: $main-color !important;
-
     }
 }
-
+em {
+    font-weight: bold;
+}
