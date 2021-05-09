@@ -13,7 +13,7 @@ const rentalRoutes = require('./routes/rentals');
 const userRoutes = require('./routes/users');
 const bookingRoutes = require('./routes/bookings');
 
-mongoose.connect("mongodb://localhost/hotel-booking", { useNewUrlParser: true })
+mongoose.connect("mongodb+srv://hoanghieu003:hoangHieu@1999@hieucluster.o53f8.mongodb.net/hogwarts-hotel", { useNewUrlParser: true })
     .then((sucess) => {
         if(process.env.NODE_ENV !== 'production'){
             const fakeDb = new FakeDb();
